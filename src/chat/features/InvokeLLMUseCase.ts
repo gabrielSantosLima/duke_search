@@ -1,5 +1,16 @@
 import OpenAI from 'openai'
 
+const SYSTEM_PROMPT = `
+You are a FAQ chatbot. 
+According the RAG CONTENT, answer the prompt of the user. 
+If you don't know about it. Just say you don't know.
+
+Answer following the template:
+
+ANSWER = ...
+FILENAME = ...
+`
+
 export class InvokeLLMUseCase {
     private openai: OpenAI
 
@@ -10,9 +21,16 @@ export class InvokeLLMUseCase {
         })
     }
 
-    async execute(prompt: string): Promise<string> {
+    async execute(ragContent: string, prompt: string): Promise<string> {
         const completion = await this.openai.chat.completions.create({
-            messages: [{role: 'user', content: prompt}],
+            messages: [
+                {
+                    role: 'system',
+                    content: SYSTEM_PROMPT,
+                },
+                {role: 'system', content: `RAG CONTENT: ${ragContent}`},
+                {role: 'user', content: prompt},
+            ],
             model: 'gemma-4-e4b-it',
         })
         return (

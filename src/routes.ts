@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import {userRoutes} from './chat/routes.ts'
+import {chatRoutes} from './chat/routes.ts'
 
 export const routes = Router()
-routes.use(userRoutes)
+routes.use(chatRoutes)
