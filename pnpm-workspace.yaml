@@ -1,0 +1,9 @@
+allowBuilds:
+  '@google/genai': true
+  '@prisma/engines': true
+  esbuild: true
+  onnxruntime-node: true
+  prisma: true
+  protobufjs: true
+  sharp: true
+  sqlite3: true
