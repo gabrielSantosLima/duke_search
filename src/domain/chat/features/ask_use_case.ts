@@ -11,7 +11,7 @@ ANSWER = ...
 FILENAME = ...
 `
 
-export class InvokeLLMUseCase {
+export class AskUseCase {
     private openai: OpenAI
 
     constructor() {

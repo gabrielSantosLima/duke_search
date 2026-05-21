@@ -1,10 +1,10 @@
 import {Router} from 'express'
-import {InvokeLLMUseCase} from './features/InvokeLLMUseCase.ts'
-import {PrismaClient} from '../../generated/prisma/client.ts'
+import {AskUseCase} from './features/ask_use_case.ts'
+import {PrismaClient} from '../../../generated/prisma/client.ts'
 import {PrismaPg} from '@prisma/adapter-pg'
 import {Pool} from 'pg'
 import {pipeline} from '@huggingface/transformers'
-import {semanticSearch} from '../../generated/prisma/sql.ts'
+import {semanticSearch} from '../../../generated/prisma/sql.ts'
 
 const connectionString = `${process.env.DATABASE_URL}`
 const pool = new Pool({connectionString})
@@ -20,7 +20,7 @@ interface ChatBody {
     message: {content: string}
 }
 
-const invokeLLMUseCase = new InvokeLLMUseCase()
+const invokeLLMUseCase = new AskUseCase()
 
 chatRoutes.post(path, async (req, resp) => {
     const {message} = req.body as ChatBody
