@@ -1,4 +1,27 @@
 services:
+    api:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        env_file:
+            - .env
+        environment:
+            - DATABASE_HOST=dukedb
+        ports:
+            - ${PORT:-3333}:3333
+        depends_on:
+            dukedb:
+                condition: service_healthy
+    web:
+        build:
+            context: ./web
+            dockerfile: Dockerfile
+            args:
+                - VITE_API_URL=${VITE_API_URL:-http://localhost:3333}
+        ports:
+            - ${WEB_PORT:-3000}:80
+        depends_on:
+            - api
     dukedb:
         image: pgvector/pgvector:pg18-trixie
         restart: always
