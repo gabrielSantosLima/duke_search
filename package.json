@@ -5,7 +5,11 @@
     "main": "src/index.ts",
     "type": "module",
     "scripts": {
-        "dev": "nodemon src/index.ts"
+        "dev": "nodemon src/index.ts",
+        "start": "tsx src/index.ts",
+        "typecheck": "tsc --noEmit",
+        "lint": "eslint .",
+        "ci": "pnpm typecheck && pnpm lint"
     },
     "keywords": [],
     "author": "",
