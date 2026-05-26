@@ -13,9 +13,9 @@ The API is designed to work with:
 ### Chat and RAG
 
 - `POST /v1/chat/completions`
-  - Accepts a JSON body with `message.content`.
-  - Runs retrieval-augmented generation over indexed content.
-  - Returns an answer payload.
+    - Accepts a JSON body with `message.content`.
+    - Runs retrieval-augmented generation over indexed content.
+    - Returns an answer payload.
 
 Example:
 
@@ -28,7 +28,7 @@ curl -X POST http://localhost:3333/v1/chat/completions \
 ### Model discovery
 
 - `GET /v1/models`
-  - Proxies/list models from the configured OpenAI-compatible API.
+    - Proxies/list models from the configured OpenAI-compatible API.
 
 Example:
 
@@ -39,9 +39,9 @@ curl http://localhost:3333/v1/models
 ### Embeddings
 
 - `POST /v1/embeddings`
-  - Accepts `input` as a string or string array.
-  - Generates embeddings with the default local model `Xenova/all-MiniLM-L6-v2`.
-  - Returns an OpenAI-style embeddings response.
+    - Accepts `input` as a string or string array.
+    - Generates embeddings with the default local model `Xenova/all-MiniLM-L6-v2`.
+    - Returns an OpenAI-style embeddings response.
 
 Example:
 
@@ -54,12 +54,12 @@ curl -X POST http://localhost:3333/v1/embeddings \
 ### Documents
 
 - `POST /documents`
-  - Uploads up to 10 files using multipart form-data under the `files` field.
-  - Returns metadata and a static URL for each uploaded file.
+    - Uploads up to 10 files using multipart form-data under the `files` field.
+    - Returns metadata and a static URL for each uploaded file.
 - `GET /documents`
-  - Lists uploaded file names from the local upload directory.
+    - Lists uploaded file names from the local upload directory.
 - `GET /static/:filename`
-  - Serves uploaded files from the local upload directory.
+    - Serves uploaded files from the local upload directory.
 
 Example upload:
 
@@ -139,15 +139,38 @@ Web variable:
 VITE_API_URL=http://localhost:3333
 ```
 
-### 4. Start infrastructure
+### 4. Start the development database
 
-Start PostgreSQL/pgvector and Adminer:
+Use the database initialization script to start the PostgreSQL/pgvector and Adminer containers, wait until the database is ready, apply Prisma migrations, and generate the Prisma client:
 
 ```bash
-docker compose up -d dukedb adminer
+bash tools/initialize-db.sh
 ```
 
-Adminer is available at `http://localhost:8080`.
+The script expects `.env` to exist in the repository root. If needed, create it first:
+
+```bash
+cp .env.example .env
+```
+
+Default local services:
+
+- PostgreSQL/pgvector: `localhost:5432`
+- Adminer: `http://localhost:8080`
+
+Adminer login values come from `.env`:
+
+- System: `PostgreSQL`
+- Server: `dukedb`
+- Username: `DATABASE_USER`
+- Password: `DATABASE_PASSWORD`
+- Database: `DATABASE_DB`
+
+If the database takes longer than the default 60 seconds to become ready, increase the wait timeout:
+
+```bash
+WAIT_TIMEOUT_SECONDS=120 bash tools/initialize-db.sh
+```
 
 ### 5. Run the API in development
 
@@ -222,18 +245,18 @@ Contributions are welcome. Please follow these guidelines:
 4. Add or update documentation when behavior, setup, or endpoints change.
 5. Run checks before opening a pull request:
 
-   ```bash
-   pnpm run ci
-   cd web && pnpm run ci
-   docker compose config --quiet
-   ```
+    ```bash
+    pnpm run ci
+    cd web && pnpm run ci
+    docker compose config --quiet
+    ```
 
 6. For container-related changes, verify the relevant Docker build stage:
 
-   ```bash
-   docker build --target checks -t duke-search-api-check .
-   docker build --target checks -t duke-search-web-check ./web
-   ```
+    ```bash
+    docker build --target checks -t duke-search-api-check .
+    docker build --target checks -t duke-search-web-check ./web
+    ```
 
 7. Open a pull request with a clear description of the problem, solution, and verification performed.
 
