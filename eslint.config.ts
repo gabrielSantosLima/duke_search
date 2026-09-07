@@ -13,5 +13,26 @@ export default defineConfig([
         extends: ['js/recommended'],
         languageOptions: {globals: globals.browser},
     },
+    {
+        files: ['jest.config.cjs'],
+        languageOptions: {globals: globals.node},
+    },
+    {
+        files: ['tests/**/*.ts'],
+        languageOptions: {
+            globals: {
+                ...globals.node,
+                jest: 'readonly',
+                describe: 'readonly',
+                it: 'readonly',
+                test: 'readonly',
+                expect: 'readonly',
+                beforeAll: 'readonly',
+                afterAll: 'readonly',
+                beforeEach: 'readonly',
+                afterEach: 'readonly',
+            },
+        },
+    },
     tseslint.configs.recommended,
 ])

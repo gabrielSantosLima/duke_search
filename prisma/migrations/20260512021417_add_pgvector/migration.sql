@@ -5,7 +5,7 @@ CREATE EXTENSION IF NOT EXISTS vector;
 CREATE TABLE document_knowledge (
     id SERIAL PRIMARY KEY,
     content TEXT NOT NULL,                  -- The actual text chunk
-    embedding VECTOR(384),                  -- Adjust 384 to match your model (e.g., Gemma/MiniLM)
+    embedding VECTOR(768),                  -- Must match the embedding model dimension (e.g., google/embeddinggemma-300m)
     source_name VARCHAR(255),               -- e.g., "Manual_V1.pdf" or "Presentation.pptx"
     page_number INTEGER,                    -- Page or Slide number
     created_at TIMESTAMP DEFAULT NOW()

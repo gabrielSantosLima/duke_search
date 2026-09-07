@@ -7,6 +7,7 @@ services:
             - .env
         environment:
             - DATABASE_HOST=dukedb
+            - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@dukedb:5432/${DATABASE_DB}?schema=public
         ports:
             - ${PORT:-3333}:3333
         depends_on:
