@@ -1,4 +1,4 @@
-import {OpenAIClient} from '../../../modules/openai/index.ts'
+import {OpenAIClient} from '../../openai/index.ts'
 import {
     EMBEDDING_MODEL_ID,
     MODEL_API_KEY,

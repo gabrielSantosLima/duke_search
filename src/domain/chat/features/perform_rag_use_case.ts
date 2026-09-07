@@ -1,13 +1,11 @@
 import {PrismaClient} from '../../../../generated/prisma/client.ts'
 import {semanticSearch} from '../../../../generated/prisma/sql.ts'
-import {AskUseCase} from './ask_use_case.ts'
 import {GenerateEmbeddingUseCase} from './generate_embedding_use_case.ts'
 
 export class PerformRagUseCase {
     constructor(
         private prisma: PrismaClient,
         private generateEmbeddingUseCase: GenerateEmbeddingUseCase,
-        private askUseCase: AskUseCase,
     ) {}
 
     async execute(prompt: string): Promise<string> {
@@ -18,7 +16,7 @@ export class PerformRagUseCase {
             semanticSearch(embedding),
         )
 
-        const ragContent = JSON.stringify(
+        return JSON.stringify(
             responseDatabase.map(response => {
                 return {
                     text: response.content,
@@ -27,7 +25,5 @@ export class PerformRagUseCase {
                 }
             }),
         )
-
-        return this.askUseCase.execute(ragContent, prompt)
     }
 }

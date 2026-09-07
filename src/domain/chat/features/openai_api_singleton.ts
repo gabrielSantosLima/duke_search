@@ -1,4 +1,4 @@
-import {OpenAIClient} from '../../../modules/openai/index.ts'
+import {OpenAIClient} from '../../openai/index.ts'
 import {MODEL_API_KEY, MODEL_BASE_URL} from '../../../constants.ts'
 
 export class OpenAIAPISingleton {

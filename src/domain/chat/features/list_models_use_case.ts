@@ -1,4 +1,4 @@
-import {OpenAIClient} from '../../../modules/openai/index.ts'
+import {OpenAIClient} from '../../openai/index.ts'
 import {Model} from '../entities/model.ts'
 
 export class ListModelsUseCase {

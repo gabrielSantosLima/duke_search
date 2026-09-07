@@ -1,7 +1,8 @@
 import type {
     ChatCompletion,
-    ChatCompletionMessage,
+    ChatMessage,
     EmbeddingResponse,
+    FunctionDeclaration,
     ModelList,
 } from './types.ts'
 
@@ -42,8 +43,9 @@ export class OpenAIClient {
     }
 
     async createChatCompletion(params: {
-        messages: ChatCompletionMessage[]
+        messages: ChatMessage[]
         model: string
+        tools?: {type: 'function'; function: FunctionDeclaration}[]
     }): Promise<ChatCompletion> {
         return this.request<ChatCompletion>('/chat/completions', {
             method: 'POST',
