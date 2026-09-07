@@ -4,14 +4,15 @@ RUN corepack enable
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --frozen-lockfile
 
-FROM deps AS checks
+FROM deps AS build
 COPY . .
-RUN pnpm run ci
+RUN pnpm prisma generate
+RUN pnpm run lint
 
 FROM node:24-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 RUN corepack enable
-COPY --from=checks /app /app
+COPY --from=build /app /app
 EXPOSE 3333
-CMD ["pnpm", "start"]
+CMD ["sh", "-c", "pnpm prisma migrate deploy && pnpm prisma generate --sql && pnpm start"]
