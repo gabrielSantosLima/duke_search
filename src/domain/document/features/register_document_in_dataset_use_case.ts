@@ -5,10 +5,12 @@ import {GenerateEmbeddingUseCase} from '../../chat/features/generate_embedding_u
 export type DatasetDocumentInput = {
     path: string
     sourceName: string
+    localFilename: string
 }
 
 export type DatasetRegistrationResult = {
     sourceName: string
+    localFilename: string
     chunks: number
 }
 
@@ -35,13 +37,14 @@ export class RegisterDocumentInDatasetUseCase {
                 const vector = `[${embedding.join(',')}]`
 
                 await this.prisma.$executeRaw`
-                    INSERT INTO "document_knowledge" (content, embedding, source_name, page_number)
-                    VALUES (${chunk}, ${vector}::vector, ${document.sourceName}, 0)
+                    INSERT INTO "document_knowledge" (content, embedding, source_name, local_filename, page_number)
+                    VALUES (${chunk}, ${vector}::vector, ${document.sourceName}, ${document.localFilename}, 0)
                 `
             }
 
             results.push({
                 sourceName: document.sourceName,
+                localFilename: document.localFilename,
                 chunks: chunks.length,
             })
         }

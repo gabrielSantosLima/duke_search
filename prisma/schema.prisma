@@ -9,12 +9,13 @@ datasource db {
 }
 
 model document_knowledge {
-    id          Int                    @id @default(autoincrement())
-    content     String
-    embedding   Unsupported("vector")?
-    source_name String?                @db.VarChar(255)
-    page_number Int?
-    created_at  DateTime?              @default(now()) @db.Timestamp(6)
+    id            Int                    @id @default(autoincrement())
+    content       String
+    embedding     Unsupported("vector")?
+    source_name   String?                @db.VarChar(255)
+    local_filename String?               @db.VarChar(255)
+    page_number   Int?
+    created_at    DateTime?              @default(now()) @db.Timestamp(6)
 
     @@index([embedding])
 }
