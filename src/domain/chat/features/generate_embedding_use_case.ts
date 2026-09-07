@@ -1,6 +1,7 @@
 import {pipeline} from '@huggingface/transformers'
+import {EMBEDDING_MODEL_ID} from '../../../constants.ts'
 
-const embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2')
+const embedder = await pipeline('feature-extraction', EMBEDDING_MODEL_ID)
 
 export class GenerateEmbeddingUseCase {
     async execute(text: string): Promise<number[]> {

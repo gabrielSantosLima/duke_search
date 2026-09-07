@@ -52,9 +52,6 @@ importers:
       multer:
         specifier: ^2.1.1
         version: 2.1.1
-      openai:
-        specifier: ^6.37.0
-        version: 6.37.0(ws@8.20.1)(zod@4.4.2)
       prisma:
         specifier: ^7.8.0
         version: 7.8.0(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@6.0.3)
@@ -2964,18 +2961,6 @@ packages:
     resolution: {integrity: sha512-YgBpdJHPyQ2UE5x+hlSXcnejzAvD0b22U2OuAP+8OnlJT+PjWPxtgmGqKKc+RgTM63U9gN0YzrYc71R2WT/hTA==}
     engines: {node: '>=18'}
 
-  openai@6.37.0:
-    resolution: {integrity: sha512-0H5dEGFmmLv6KSd0W1w2nyL8WsLkX6yoLeQpU+dZAOuGcany5qkYQMmj35ZrKgb6yiyYqpUzFOpR8mZQkgqeEQ==}
-    hasBin: true
-    peerDependencies:
-      ws: '>=8.20.1'
-      zod: ^3.25 || ^4.0
-    peerDependenciesMeta:
-      ws:
-        optional: true
-      zod:
-        optional: true
-
   optionator@0.9.4:
     resolution: {integrity: sha512-6IpQ7mKUxRcZNLIObR0hz7lxsapSSIYNZJwXPGeF0mTVqGKFIXj1DQcMoT22S3ROcLyY/rz0PWaWZ9ayWmad9g==}
     engines: {node: '>= 0.8.0'}
@@ -4568,7 +4553,7 @@ snapshots:
     dependencies:
       '@mikro-orm/core': 6.6.13
       fs-extra: 11.3.3
-      knex: 3.2.10(pg@8.20.0)(sqlite3@5.1.7)
+      knex: 3.2.10(mysql2@3.20.0(@types/node@25.6.0))(pg@8.20.0)
       sqlstring: 2.3.3
     optionalDependencies:
       mariadb: 3.4.5
@@ -7051,11 +7036,6 @@ snapshots:
       define-lazy-prop: 3.0.0
       is-inside-container: 1.0.0
       wsl-utils: 0.1.0
-
-  openai@6.37.0(ws@8.20.1)(zod@4.4.2):
-    optionalDependencies:
-      ws: 8.20.1
-      zod: 4.4.2
 
   optionator@0.9.4:
     dependencies:
