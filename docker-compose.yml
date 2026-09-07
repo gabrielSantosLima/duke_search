@@ -12,16 +12,6 @@ services:
         depends_on:
             dukedb:
                 condition: service_healthy
-    web:
-        build:
-            context: ./web
-            dockerfile: Dockerfile
-            args:
-                - VITE_API_URL=${VITE_API_URL:-http://localhost:3333}
-        ports:
-            - ${WEB_PORT:-3000}:80
-        depends_on:
-            - api
     dukedb:
         image: pgvector/pgvector:pg18-trixie
         restart: always
@@ -46,8 +36,3 @@ services:
             timeout: 5s
             retries: 5
             start_period: 10s
-    adminer:
-        image: adminer
-        restart: always
-        ports:
-            - 8080:8080
