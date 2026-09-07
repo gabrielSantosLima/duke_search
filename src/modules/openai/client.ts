@@ -1,6 +1,7 @@
 import type {
     ChatCompletion,
     ChatCompletionMessage,
+    EmbeddingResponse,
     ModelList,
 } from './types.ts'
 
@@ -52,5 +53,15 @@ export class OpenAIClient {
 
     async listModels(): Promise<ModelList> {
         return this.request<ModelList>('/models')
+    }
+
+    async createEmbedding(params: {
+        input: string
+        model: string
+    }): Promise<EmbeddingResponse> {
+        return this.request<EmbeddingResponse>('/embeddings', {
+            method: 'POST',
+            body: JSON.stringify(params),
+        })
     }
 }
