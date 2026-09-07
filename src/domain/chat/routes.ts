@@ -7,6 +7,7 @@ import {OpenAIAPISingleton} from './features/openai_api_singleton.ts'
 import {ListModelsUseCase} from './features/list_models_use_case.ts'
 import {GenerateEmbeddingUseCase} from './features/generate_embedding_use_case.ts'
 import {PerformRagUseCase} from './features/perform_rag_use_case.ts'
+import {EMBEDDING_MODEL_ID} from '../../constants.ts'
 
 const connectionString = `${process.env.DATABASE_URL}`
 const pool = new Pool({connectionString})
@@ -95,7 +96,7 @@ chatRoutes.post(EMBEDDINGS_PATH, async (req, resp) => {
             }),
         )
 
-        const modelId = model || 'Xenova/all-MiniLM-L6-v2'
+        const modelId = model || EMBEDDING_MODEL_ID
 
         return resp.status(200).json({
             object: 'list',

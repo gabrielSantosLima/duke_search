@@ -1,12 +1,12 @@
-import OpenAI from 'openai'
-import {MODEL_API_KEY, MODEL_BASE_URL} from '../../../constants'
+import {OpenAIClient} from '../../../modules/openai/index.ts'
+import {MODEL_API_KEY, MODEL_BASE_URL} from '../../../constants.ts'
 
 export class OpenAIAPISingleton {
-    private static instance: OpenAI
+    private static instance: OpenAIClient
 
-    public static getInstance(): OpenAI {
+    public static getInstance(): OpenAIClient {
         if (!OpenAIAPISingleton.instance) {
-            OpenAIAPISingleton.instance = new OpenAI({
+            OpenAIAPISingleton.instance = new OpenAIClient({
                 baseURL: MODEL_BASE_URL,
                 apiKey: MODEL_API_KEY,
             })
