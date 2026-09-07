@@ -65,6 +65,7 @@ documentsRoutes.post('/documents', (req, res) => {
                 files.map(file => ({
                     path: file.path,
                     sourceName: file.originalname,
+                    localFilename: file.filename,
                 })),
             )
 

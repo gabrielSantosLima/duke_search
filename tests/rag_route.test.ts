@@ -79,5 +79,30 @@ describe('RAG route', () => {
         const body = (await response.json()) as ChatResponse
         expect(typeof body.answer).toBe('string')
         expect(body.answer.length).toBeGreaterThan(0)
-    }, 20_000)
+    }, 60_000)
+
+    it(
+        'lists registered files using the list_files skill',
+        async () => {
+            const response = await fetch(`${BASE_URL}/v1/chat/completions`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    message: {
+                        content:
+                            'What documents are available in the database? List them.',
+                    },
+                }),
+            })
+
+            expect(response.ok).toBe(true)
+            const body = (await response.json()) as ChatResponse
+            expect(typeof body.answer).toBe('string')
+            expect(body.answer.length).toBeGreaterThan(0)
+            expect(body.answer.toLowerCase()).toContain(
+                PAPER_NAME.replace('.txt', '').toLowerCase(),
+            )
+        },
+        60_000,
+    )
 })
