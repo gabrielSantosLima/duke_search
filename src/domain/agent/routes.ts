@@ -21,7 +21,7 @@ agentRoutes.post('/v1/chat/completions', async (req, resp) => {
             })
         }
 
-        const session = await createSessionUseCase.execute(runner)
+        const session = await createSessionUseCase.execute(runner, 'api-user')
         const answer = await runAgentUseCase.execute(
             runner,
             session,
