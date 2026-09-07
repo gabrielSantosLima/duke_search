@@ -18,3 +18,9 @@ export interface ModelList {
         id: string
     }[]
 }
+
+export interface EmbeddingResponse {
+    data: {
+        embedding: number[]
+    }[]
+}
