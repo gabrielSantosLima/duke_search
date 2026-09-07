@@ -17,6 +17,11 @@
     "author": "",
     "license": "ISC",
     "packageManager": "pnpm@10.33.2",
+    "pnpm": {
+        "overrides": {
+            "adm-zip": "^0.6.0"
+        }
+    },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
         "@google/adk-devtools": "2.0.0",
